@@ -9,7 +9,7 @@ const config = process.env;
 
 import cors from "cors";
 
-const PORT = 4040;
+const port = 4040;
 const app = express();
 
 app.use(morgan("dev"));
@@ -20,10 +20,12 @@ const corsOptions = {
 	origin: [
 		"http://127.0.0.1:5173",
 		"http://127.0.0.1:4173",
+		"http://127.0.0.1:4040",
 		"http://localhost:5173",
 		"http://localhost:4173",
 		"http://[::1]:4173",
 		"http://[::1]:5173",
+		"http://localhost:5173"
 	],
 	credentials: true, //included credentials as true
 	preflightContinue: true,
@@ -62,8 +64,8 @@ app.use("/api/auth/", authRoute);
 app.use("/api/posts/", accessControlRoutes);
 
 try {
-	app.listen(PORT, () =>
-		console.log(`Connected and listening on port ${PORT}.`),
+	app.listen(port, () =>
+		console.log(`Connected and listening http://localhost:${port}.`),
 	);
 } catch (err) {
 	console.log(`Failed to start the server with error: ${err}`);
